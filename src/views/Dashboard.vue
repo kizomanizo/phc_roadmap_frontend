@@ -4,10 +4,11 @@
             <h2>{{ user.username }} Dashboard</h2>
             <p>This is the Dashboard page</p>
             <table>
+                <caption>User actions</caption>
                 <tr>
-                    <th>Last Login Date</th>
-                    <th>Token Expiry Date</th>
-                    <th>Status</th>
+                    <th id="lastlogin">Last Login Date</th>
+                    <th id="tokenexpiry">Token Expiry Date</th>
+                    <th id="userstatus">Status</th>
                 </tr>
                 <tr>
                     <td>{{ new Date(user.lastLogin).getDate()+'-'+(new Date(user.lastLogin).getMonth()+1)+'-'+(new Date(user.lastLogin).getFullYear()) }}</td>

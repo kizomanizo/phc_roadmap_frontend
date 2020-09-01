@@ -48,18 +48,25 @@ export default ({
 
             try {
                 // Muted as we set the mutations in the subscriber file
-                // let response = await axios.get('users/me/details', {
+                // let response = await axios.get('users/me', {
                 //     headers: {
                 //         'Authorization': 'Bearer ' + token
                 //     }
                 // })
-                let response = await axios.get('users/me/details')
+                let response = await axios.get('users/me')
 
                 commit('SET_USER', response.data.user)
             }   catch (error) {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
             }
+        },
+
+        signOut ( {commit} ) {
+            return axios.post('users/signout').then(() => {
+                commit('SET_TOKEN', null)
+                commit('SET_USER', null)
+            })
         }
     }
 })

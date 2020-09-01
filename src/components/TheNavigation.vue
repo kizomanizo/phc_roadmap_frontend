@@ -4,7 +4,7 @@
             <li>
                 <router-link
                     :to="{
-                        name: 'Home'
+                        name: 'home'
                     }"
                 >
                 Home
@@ -24,7 +24,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <a href="#">Sign Out</a>
+                    <a href="#" @click.prevent="signOut">Sign Out</a>
                 </li>
             </template>
             <template v-else>
@@ -43,13 +43,28 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
             user: 'auth/user',
-        })
+        }),
     },
+
+    methods: {
+        ...mapActions ({
+            signOutAction: 'auth/signOut'
+        }),
+
+        signOut () {
+            this.signOutAction().then(() => {
+                this.$router.replace({
+                    name: 'home'
+                })
+            })
+        }
+    }
 }
 </script>

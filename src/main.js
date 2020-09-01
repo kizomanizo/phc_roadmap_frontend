@@ -6,7 +6,7 @@ import axios from 'axios'
 
 require('@/store/subscriber')
 
-axios.defaults.baseURL = 'http://localhost:4000/api/v1/';
+axios.defaults.baseURL = 'http://localhost:4001/api/v1/';
 
 Vue.config.productionTip = false
 
