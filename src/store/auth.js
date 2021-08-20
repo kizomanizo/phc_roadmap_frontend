@@ -7,6 +7,7 @@ export default ({
         // Initiate stored objects
         token: null,
         user: null,
+        alert: null,
     },
 
     mutations: {
@@ -16,6 +17,9 @@ export default ({
         },
         SET_USER(state, data) {
             state.user = data
+        },
+        SET_ALERT(state, alert) {
+            state.alert = alert
         }
     },
 
@@ -27,13 +31,15 @@ export default ({
         user (state) {
             return state.user
         },
+        alert (state) {
+            return state.alert
+        }
     },
 
     actions: {
         // This is what actually happens
         async signIn ({ dispatch }, credentials) {
             let response = await axios.post('users/login', credentials)
-            
             return dispatch('attempt', response.data.token)
         },
 
@@ -48,12 +54,12 @@ export default ({
 
             try {
                 // Muted as we set the mutations in the subscriber file
-                // let response = await axios.get('users/me', {
+                // let response = await axios.get('users/me/details', {
                 //     headers: {
                 //         'Authorization': 'Bearer ' + token
                 //     }
                 // })
-                let response = await axios.get('users/me')
+                let response = await axios.get('users/me/details')
 
                 commit('SET_USER', response.data.user)
             }   catch (error) {
@@ -62,11 +68,23 @@ export default ({
             }
         },
 
-        signOut ( {commit} ) {
-            return axios.post('users/signout').then(() => {
-                commit('SET_TOKEN', null)
-                commit('SET_USER', null)
-            })
+        // signOut ( {commit} ) {
+        //     return axios.post('users/signout').then(() => {
+        //         commit('SET_TOKEN', null)
+        //         commit('SET_USER', null)
+        //     })
+        // },
+
+        async signOut ( { dispatch }) {
+            let response = await axios.post('users/signout')
+                const alert = response.data.message;
+                return dispatch('logout', alert)
+
+        },
+        async logout ({ commit }, alert) {
+            commit('SET_ALERT', alert)
+            commit('SET_TOKEN', null)
+            commit('SET_USER', null)
         }
-    }
+    },
 })
