@@ -4,7 +4,6 @@ import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Form from '../views/Form.vue'
-import User from '../views/Users.vue'
 import Settings from '../views/Settings.vue'
 import store  from '@/store'
 
@@ -34,11 +33,6 @@ Vue.use(VueRouter)
         path: '/form',
         name: 'form',
         component: Form,
-    },
-    {
-        path: '/user',
-        name: 'user',
-        component: User,
     },
 ]
 

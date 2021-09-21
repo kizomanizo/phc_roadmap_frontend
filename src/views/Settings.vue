@@ -2,26 +2,14 @@
     <div>
         <template>
             <h2>Settings</h2>
-            <p>{{ alert }}</p>
+            <p>{{ message }}</p>
             <div>
-                <b-table striped hover :items="users" :fields="[
-                    { key: 'person.firstname', label: 'First Name' },
-                    { key: 'person.lastname', label: 'last Name' },
-                    { key: 'username', label: 'Username'  },
-                    { key: 'email', label: 'email'  },
-                    { key: 'person.organization', label: 'Organization' },
-                    { key: ':href', label: 'Action'},
-                    'join_date',
-                    ]">
-                    <b-table-column>
-                    <button class="button is-small is-light">
-                        <b-icon icon="edit" size="is-small"></b-icon>
-                    </button>
-                    <button class="button is-small is-danger">
-                        <b-icon icon="delete" size="is-small"></b-icon>
-                    </button>
-                    </b-table-column>
-                </b-table>
+                <div v-for="(api, index) in apis" :key="api.id" :value="api.value">
+                    <strong>{{index}}:</strong>
+                    <a v-bind:href="''">
+                        {{ api }}
+                    </a>
+                </div>
             </div>
         </template>
     </div>
@@ -42,8 +30,9 @@ export default {
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
-            users: 'users/list',
+            apis: 'settings/list',
             alert: 'auth/alert',
+            message: 'auth/message',
         })
     },
     data() {

@@ -1,4 +1,4 @@
-# Credit Reports Backend
+# PHC Costing Tool Frontend
 
 ## Installation ##
 To install the app, first configure the backend URL in `main.js` file in the root folder to whatever your backend is. The line reads: `axios.defaults.baseURL = 'your_backend_base_URL'`

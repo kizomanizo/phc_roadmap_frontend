@@ -2,7 +2,7 @@
     <div>
         <template>
             <h2>Home</h2>
-            <p>{{ alert }}</p>
+            <p>{{ message }}</p>
         </template>
     </div>
 </template>
@@ -24,6 +24,7 @@ export default {
             authenticated: 'auth/authenticated',
             user: 'auth/user',
             alert: 'auth/alert',
+            message: 'auth/message',
         })
     },
 }

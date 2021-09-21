@@ -6,8 +6,9 @@ export default ({
     state: {
         // Initiate stored objects
         token: null,
-        user: null,
         alert: null,
+        message: null,
+        user: null,
     },
 
     mutations: {
@@ -15,38 +16,45 @@ export default ({
         SET_TOKEN(state, token) {
             state.token = token
         },
-        SET_USER(state, data) {
-            state.user = data
-        },
         SET_ALERT(state, alert) {
             state.alert = alert
-        }
+        },
+        SET_MESSAGE(state, message) {
+            state.message = message
+        },
+        SET_USER(state, user) {
+            state.user = user
+        },
     },
 
     getters: {
         authenticated (state) {
             return state.token && state.user
         },
-
-        user (state) {
-            return state.user
-        },
         alert (state) {
             return state.alert
+        },
+        message (state) {
+            return state.message
+        },
+        user (state) {
+            return state.user
         },
     },
 
     actions: {
         // This is what actually happens
         async signIn ({ dispatch }, credentials) {
-            let response = await axios.post('users/login', credentials)
-            return dispatch('attempt', response.data.message)
+            let response = await axios.post('/users/login/', credentials)
+            return dispatch('attempt', response.data)
         },
-
-        async attempt({ commit, state }, token) {
-            if (token) {
-                commit('SET_TOKEN', token)
-                commit('SET_ALERT', 'User has signed in!')
+        
+        async attempt({ commit, state }, data) {
+            if (data) {
+                commit('SET_TOKEN', data.access)
+                commit('SET_ALERT', false)
+                commit('SET_MESSAGE', 'Token has been received!')
+                commit('SET_USER', data.username)
             }
 
             if (!state.token) {
@@ -54,25 +62,31 @@ export default ({
             }
 
             try {
-                let response = await axios.get('users/me/details')
-                commit('SET_USER', response.data.message)
+                // let response = await axios.get('/users/me/details')
+                // commit('SET_USER', response.data.message)
+                commit('SET_ALERT', false)
+                commit('SET_MESSAGE', 'Home page is loaded')
             }   catch (error) {
-                commit('SET_TOKEN', null)
-                commit('SET_USER', null)
+                    commit('SET_TOKEN', null)
+                    commit('SET_USER', null)
+                    commit('SET_ALERT', true)
+                    commit('SET_MESSAGE', error.message)
             }
         },
 
         async signOut ( { dispatch }) {
-            let response = await axios.post('users/signout')
-                const alert = response.data.message;
-                return dispatch('logout', alert)
+            // let response = await axios.post('users/signout')
+                // const alert = response.data.message;
+                const alert = 'User has signed out!'
+                return dispatch('logOut', alert)
 
         },
         
-        async logout ({ commit }, alert) {
-            commit('SET_ALERT', alert)
+        async logOut ({ commit }, alert) {
             commit('SET_TOKEN', null)
             commit('SET_USER', null)
+            commit('SET_ALERT', true)
+            commit('SET_MESSAGE', alert)
         }
     },
 })

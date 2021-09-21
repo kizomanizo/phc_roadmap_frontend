@@ -1,21 +1,11 @@
 <template>
     <div>
         <template>
-            <h2>{{ user.username }} Dashboard</h2>
-            <p>{{ alert }}</p>
-            <table>
-                <caption>User actions</caption>
-                <tr>
-                    <th id="full_name">Full Name</th>
-                    <th id="user_email">User Email</th>
-                    <th id="users_tatus">Status</th>
-                </tr>
-                <tr>
-                    <td>{{ user.person.firstname+' '+user.person.lastname }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.status }} </td>
-                </tr>
-            </table>
+            <h2>{{ user }} Dashboard</h2>
+            <p>{{ message }}</p>
+            <div v-for="(goal, index) in goals" :key="goal.goal" :value="goal.value">
+                <strong>{{index}}: </strong> {{goal}}
+            </div>
         </template>
     </div>
 </template>
@@ -37,6 +27,8 @@ export default {
             authenticated: 'auth/authenticated',
             user: 'auth/user',
             alert: 'auth/alert',
+            message: 'auth/message',
+            goals: 'dashboard/goals',
         })
     },
 }
