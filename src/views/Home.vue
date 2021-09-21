@@ -1,21 +1,28 @@
 <template>
     <div>
-        <h2>Home</h2>
-        <!-- <p>This is the Home page</p> -->
-        <p>{{ alert }}</p>
+        <template>
+            <h2>Home</h2>
+            <p>{{ alert }}</p>
+        </template>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-    name: 'Home',
+    name: 'home',
     components: {
         
     },
+
     computed: {
         ...mapGetters ({
+            authenticated: 'auth/authenticated',
+            user: 'auth/user',
             alert: 'auth/alert',
         })
     },

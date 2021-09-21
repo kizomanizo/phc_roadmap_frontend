@@ -1,42 +1,14 @@
 <template>
     <div>
         <ul>
-            <li>
-                <router-link
-                    :to="{
-                        name: 'home'
-                    }"
-                >
-                Home
-                </router-link>
-            </li>
+            <li> <router-link :to="{ name: 'home' }">Home</router-link></li>
             <template v-if="authenticated">
-                <li>
-                    User: {{ user.username }}
-                </li>
-                <li>
-                    <router-link
-                        :to="{
-                            name: 'dashboard'
-                        }"
-                    >
-                    Dashboard
-                    </router-link>
-                </li>
-                <li>
-                    <a href="#" @click.prevent="signOut">Sign Out</a>
-                </li>
+                <li>User: {{ user.username }}</li>
+                <li><router-link :to="{ name: 'dashboard' }">Dashboard</router-link></li>
+                <li><a href="#" @click.prevent="signOut">Sign Out</a></li>
             </template>
             <template v-else>
-                <li>
-                    <router-link
-                        :to="{
-                            name: 'signin'
-                        }"
-                    >
-                    Sign In
-                    </router-link>
-                </li>
+                <li><router-link :to="{ name: 'signin' }">Sign In</router-link></li>
             </template>
         </ul>
     </div>

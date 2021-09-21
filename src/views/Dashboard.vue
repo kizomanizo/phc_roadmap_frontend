@@ -1,18 +1,18 @@
 <template>
     <div>
-        <template v-if="authenticated">
+        <template>
             <h2>{{ user.username }} Dashboard</h2>
-            <p>This is the Dashboard page</p>
+            <p>{{ alert }}</p>
             <table>
                 <caption>User actions</caption>
                 <tr>
-                    <th id="lastlogin">Last Login Date</th>
-                    <th id="tokenexpiry">Token Expiry Date</th>
-                    <th id="userstatus">Status</th>
+                    <th id="full_name">Full Name</th>
+                    <th id="user_email">User Email</th>
+                    <th id="users_tatus">Status</th>
                 </tr>
                 <tr>
-                    <td>{{ new Date(user.lastLogin).getDate()+'-'+(new Date(user.lastLogin).getMonth()+1)+'-'+(new Date(user.lastLogin).getFullYear()) }}</td>
-                    <td>{{ new Date(user.tokenExpiry).getDate()+'-'+(new Date(user.tokenExpiry).getMonth()+1)+'-'+(new Date(user.tokenExpiry).getFullYear()) }}</td>
+                    <td>{{ user.person.firstname+' '+user.person.lastname }}</td>
+                    <td>{{ user.email }}</td>
                     <td>{{ user.status }} </td>
                 </tr>
             </table>
@@ -22,6 +22,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
     name: 'dashboard',
@@ -33,6 +36,7 @@ export default {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
             user: 'auth/user',
+            alert: 'auth/alert',
         })
     },
 }

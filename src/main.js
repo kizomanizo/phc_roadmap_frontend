@@ -3,6 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 
 require('@/store/subscriber')
 
@@ -17,4 +23,3 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
         render: h => h(App)
     }).$mount('#app')
 })
-

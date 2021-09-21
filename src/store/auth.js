@@ -33,19 +33,20 @@ export default ({
         },
         alert (state) {
             return state.alert
-        }
+        },
     },
 
     actions: {
         // This is what actually happens
         async signIn ({ dispatch }, credentials) {
             let response = await axios.post('users/login', credentials)
-            return dispatch('attempt', response.data.token)
+            return dispatch('attempt', response.data.message)
         },
 
         async attempt({ commit, state }, token) {
             if (token) {
                 commit('SET_TOKEN', token)
+                commit('SET_ALERT', 'User has signed in!')
             }
 
             if (!state.token) {
@@ -53,27 +54,13 @@ export default ({
             }
 
             try {
-                // Muted as we set the mutations in the subscriber file
-                // let response = await axios.get('users/me/details', {
-                //     headers: {
-                //         'Authorization': 'Bearer ' + token
-                //     }
-                // })
                 let response = await axios.get('users/me/details')
-
-                commit('SET_USER', response.data.user)
+                commit('SET_USER', response.data.message)
             }   catch (error) {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
             }
         },
-
-        // signOut ( {commit} ) {
-        //     return axios.post('users/signout').then(() => {
-        //         commit('SET_TOKEN', null)
-        //         commit('SET_USER', null)
-        //     })
-        // },
 
         async signOut ( { dispatch }) {
             let response = await axios.post('users/signout')
@@ -81,6 +68,7 @@ export default ({
                 return dispatch('logout', alert)
 
         },
+        
         async logout ({ commit }, alert) {
             commit('SET_ALERT', alert)
             commit('SET_TOKEN', null)
