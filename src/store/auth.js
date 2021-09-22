@@ -43,18 +43,17 @@ export default ({
     },
 
     actions: {
-        // This is what actually happens
         async signIn ({ dispatch }, credentials) {
             let response = await axios.post('/users/login/', credentials)
             return dispatch('attempt', response.data)
         },
         
-        async attempt({ commit, state }, data) {
+        async attempt({ commit, state,  }, data) {
             if (data) {
                 commit('SET_TOKEN', data.access)
                 commit('SET_ALERT', false)
                 commit('SET_MESSAGE', 'Token has been received!')
-                commit('SET_USER', data.username)
+                commit('SET_USER', data.id)
             }
 
             if (!state.token) {
@@ -62,10 +61,8 @@ export default ({
             }
 
             try {
-                // let response = await axios.get('/users/me/details')
-                // commit('SET_USER', response.data.message)
                 commit('SET_ALERT', false)
-                commit('SET_MESSAGE', 'Home page is loaded')
+                commit('SET_MESSAGE', 'Authorized user')
             }   catch (error) {
                     commit('SET_TOKEN', null)
                     commit('SET_USER', null)
@@ -75,11 +72,8 @@ export default ({
         },
 
         async signOut ( { dispatch }) {
-            // let response = await axios.post('users/signout')
-                // const alert = response.data.message;
                 const alert = 'User has signed out!'
                 return dispatch('logOut', alert)
-
         },
         
         async logOut ({ commit }, alert) {

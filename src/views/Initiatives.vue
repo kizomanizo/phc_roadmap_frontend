@@ -1,8 +1,8 @@
 <template>
     <div>
         <template>
-            <h2 class="text-center">Investment Summary Report</h2>
-            <h3>Strategic goal 1</h3>
+            <h2>Initiatives</h2>
+            <p>{{ message }}</p>
         </template>
     </div>
 </template>
@@ -13,16 +13,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-    name: 'home',
+    name: 'initiatives',
     components: {
         
     },
-
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
             alert: 'auth/alert',
             message: 'auth/message',
+            initiatives: 'endpoints/payload'
         })
     },
 }

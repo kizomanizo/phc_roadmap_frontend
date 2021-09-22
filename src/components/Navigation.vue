@@ -4,12 +4,11 @@
             <b-container>
                 <b-navbar-nav>
                     <b-navbar-brand>RC Tool</b-navbar-brand>
-                        <b-nav-item href="#" @click.prevent="getGoals">Dashboard</b-nav-item>
-                        <b-nav-item to="goals">Goals</b-nav-item>
-                        <b-nav-item to="investments">Investments</b-nav-item>
-                        <b-nav-item to="activities">Activities</b-nav-item>
-                        <b-nav-item to="inputs">Inputs</b-nav-item>
-                        <b-nav-item href="#" @click.prevent="getSettings">Settings</b-nav-item>
+                        <b-nav-item href="#" @click.prevent="getReports">Report</b-nav-item>
+                        <b-nav-item href="#" @click.prevent="getGoals">Goals</b-nav-item>
+                        <b-nav-item href="#" @click.prevent="getInitiatives">Initiatives</b-nav-item>
+                        <b-nav-item href="#" @click.prevent="getActivities">Activities</b-nav-item>
+                        <b-nav-item href="#" @click.prevent="getInputs">Inputs</b-nav-item>
                 </b-navbar-nav>
                 <b-navbar-nav ml="auto">
                     <b-nav-text><strong>{{ user }}</strong></b-nav-text>
@@ -44,31 +43,55 @@ export default {
     methods: {
         ...mapActions ({
             signOutAction: 'auth/signOut',
-            getSettingsAction: 'settings/getSettings',
-            getGoalsAction: 'dashboard/getGoals'
+            getReportsAction: 'endpoints/getReports',
+            getGoalsAction: 'endpoints/getGoals',
+            getInitiativesAction: 'endpoints/getInitiatives',
+            getActivitiesAction: 'endpoints/getActivities',
+            getInputsAction: 'endpoints/getInputs',
         }),
 
         signOut () {
             this.signOutAction().then(() => {
                 this.$router.replace({
-                    name: 'home'
+                    name: 'signin'
                 })
             })
         },
-        getSettings () {
-            this.getSettingsAction().then(() => {
+        getReports () {
+            this.getReportsAction().then(() => {
                 this.$router.replace({
-                    name: 'settings'
+                    name: 'reports'
                 })
             })
         },
         getGoals () {
             this.getGoalsAction().then(() => {
                 this.$router.replace({
-                    name: 'dashboard'
+                    name: 'goals'
                 })
             })
-        }
+        },
+        getInitiatives () {
+            this.getInitiativesAction().then(() => {
+                this.$router.replace({
+                    name: 'initiatives'
+                })
+            })
+        },
+        getActivities () {
+            this.getActivitiesAction().then(() => {
+                this.$router.replace({
+                    name: 'activities'
+                })
+            })
+        },
+        getInputs () {
+            this.getInputsAction().then(() => {
+                this.$router.replace({
+                    name: 'inputs'
+                })
+            })
+        },
     }
 }
 </script>

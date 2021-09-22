@@ -2,9 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
-import Dashboard from '../views/Dashboard.vue'
-import Form from '../views/Form.vue'
-import Settings from '../views/Settings.vue'
+import Reports from '../views/Reports.vue'
+import Goals from '../views/Goals.vue'
+import Initiatives from '../views/Initiatives.vue'
+import Activities from '../views/Activities.vue'
+import Inputs from '../views/Inputs.vue'
+
 import store  from '@/store'
 
 Vue.use(VueRouter)
@@ -20,19 +23,29 @@ Vue.use(VueRouter)
         component: SignIn
     },
     {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: Dashboard,
+        path: '/reports',
+        name: 'reports',
+        component: Reports,
     },
     {
-        path: '/settings',
-        name: 'settings',
-        component: Settings,
+        path: '/goals',
+        name: 'goals',
+        component: Goals,
     },
     {
-        path: '/form',
-        name: 'form',
-        component: Form,
+        path: '/initiatives',
+        name: 'initiatives',
+        component: Initiatives,
+    },
+    {
+        path: '/activities',
+        name: 'activities',
+        component: Activities,
+    },
+    {
+        path: '/inputs',
+        name: 'inputs',
+        component: Inputs,
     },
 ]
 

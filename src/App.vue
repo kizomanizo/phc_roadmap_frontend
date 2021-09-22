@@ -2,7 +2,6 @@
         <div id="app">
             <Navigation />
             <b-container>
-                <Form />
                 <router-view/>
             </b-container>
         </div>

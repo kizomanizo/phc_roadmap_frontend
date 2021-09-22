@@ -1,0 +1,20 @@
+// Use this to iterate over an object as a list of links in a .vue file
+<div v-for="(api, index) in apis" :key="api.id" :value="api.value">
+    <strong>{{ index }}:</strong>
+    <a v-bind:href="''">
+        {{ api }}
+    </a>
+</div>
+
+// Use this to select fields to be shown in an object
+// Note isActive is left out and will not appear in the rendered table
+fields: ['firstname', 'lastname', 'age'],
+items: [users]
+
+// Add the following in the script to specify fields
+data() {
+    return {
+        
+    }
+}
+

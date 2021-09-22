@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# Custom files
+notepad.js
 
 # local env files
 .env

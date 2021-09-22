@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
-import settings from './settings'
-import dashboard from './dashboard'
+import endpoints from './endpoints'
 
 Vue.use(Vuex)
 
@@ -19,7 +18,6 @@ export default new Vuex.Store({
   modules: {
     // List all your store objects here
     auth,
-    settings,
-    dashboard,
+    endpoints,
   }
 })
