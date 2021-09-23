@@ -12,7 +12,7 @@ Vue.use(IconsPlugin)
 
 require('@/store/subscriber')
 
-axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
 Vue.config.productionTip = false
 

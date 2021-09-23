@@ -1,34 +1,127 @@
 <template>
     <div>
         <template>
-            <h2>Investment Summary Report</h2>
+            <div class="row">
+                <div class="col-9">
+                    <h2>Investment Summary Report</h2>
+                </div>
+                <div class="col-3">
+                    <span class="textRight"><a href="#" @click.prevent="generateReport">PDF</a></span>
+                </div>
+            </div>
             <template>
-                <div v-for="(report, index) in reports" :key="report.id">
-                    <div class="p-3 mb-2 bg-secondary text-white">
-                        <h3>Strategic Goal {{ index+1 }}: {{ report.goal }}</h3>
+                <div v-for="(data, index) in data" :key="data.id">
+                    <div class="p-3 mb-2 text-black goalText">
+                        <h3>Strategic Goal {{ index+1 }}: {{ data.goal }}</h3>
                     </div>
-                    <div v-for="(info, index) in report.initiative_info" class="row" :key="info.id">
+                    <div v-for="(initiative, index) in data.initiatives" class="row" :key="initiative.id">
                         <div class="row">
                             <div class="col-9">
-                                <h4>Inititative {{ index+1 }}: {{ info.initiative }}</h4>
+                                <h4>Inititative {{ index+1 }}: {{ initiative.initiative }}</h4>
                             </div>
-                            <div class="col-3">
-                            </div>                            
+                            <div class="col-3 rightText">
+                                <!-- For dough/cheddar -->
+                                <h4 class="text-right">$900,000</h4>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="border-bottom" v-for="(input, index) in info.activity_initiative" :key="input.id">
-                                <p class="activityText">
-                                    <strong>Activity {{index+1}}:</strong> {{ input.activity }}.
-                                </p>
-                                <p class="font-italic inputText" v-for="(name, index)    in input.activity_input" :key="name.id">
-                                    <strong>Input {{index+1}}:</strong> {{name.input_name}}
-                                </p>
+                            <div v-for="(activity, index) in initiative.activities" :key="activity.id">
+                                <div class="activityText row">
+                                    <hr class="thickHr">                     
+                                    <div class="col-9">
+                                        <span class="text-muted">Activity {{index+1}}:</span> {{ activity.activity }}.
+                                    </div>
+                                    <div class="col-3 rightText">
+                                        <!-- For dough/cheddar -->
+                                        <p class="text-right">$70,000</p>
+                                    </div>
+                                    <p class="text-muted inputTitle">Inputs</p>
+                                </div>
+                                <div>                                    
+                                    <p class="inputText" v-for="(input) in activity.inputs" :key="input.id">
+                                        {{input.input_name}}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <hr>
                     </div>
                 </div>
+            <div>Print PDF</div>
             </template>
+        </template>
+        <template>
+            <div>
+                <vue-html2pdf
+                    :show-layout="false"
+                    :float-layout="true"
+                    :enable-download="true"
+                    :preview-modal="true"
+                    :paginate-elements-by-height="1400"
+                    filename="roadmap_report"
+                    :pdf-quality="2"
+                    :manual-pagination="false"
+                    pdf-format="a4"
+                    pdf-orientation="portrait"
+                    pdf-content-width="800px"
+                    @progress="onProgress($event)"
+                    @hasStartedGeneration="hasStartedGeneration()"
+                    @hasGenerated="hasGenerated($event)"
+                    ref="html2Pdf">
+
+                    <section slot="pdf-content">
+                        <!-- PDF Content Here -->
+                        <div class="row">
+                            <div class="col-9">
+                                <h2>Investment Summary Report</h2>
+                            </div>
+                            <div class="col-3">
+                                <span class="textRight"><a href="#" @click.prevent="generateReport">PDF</a></span>
+                            </div>
+                        </div>
+                        <template>
+                            <div v-for="(data, index) in data" :key="data.id">
+                                <div class="p-3 mb-2 text-black goalText">
+                                    <h3>Strategic Goal {{ index+1 }}: {{ data.goal }}</h3>
+                                </div>
+                                <div v-for="(initiative, index) in data.initiatives" class="row" :key="initiative.id">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <h4>Inititative {{ index+1 }}: {{ initiative.initiative }}</h4>
+                                        </div>
+                                        <div class="col-3 rightText">
+                                            <!-- For dough/cheddar -->
+                                            <h4 class="text-right">$900,000</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div v-for="(activity, index) in initiative.activities" :key="activity.id">
+                                            <div class="activityText row">
+                                                <hr class="thickHr">                     
+                                                <div class="col-9">
+                                                    <span class="text-muted">Activity {{index+1}}:</span> {{ activity.activity }}.
+                                                </div>
+                                                <div class="col-3 rightText">
+                                                    <!-- For dough/cheddar -->
+                                                    <p class="text-right">$70,000</p>
+                                                </div>
+                                                <p class="text-muted inputTitle">Inputs</p>
+                                            </div>
+                                            <div>                                    
+                                                <p class="inputText" v-for="(input) in activity.inputs" :key="input.id">
+                                                    {{input.input_name}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        <div>Print PDF</div>
+                        </template>
+                    </section>
+                </vue-html2pdf>
+            </div>
         </template>
     </div>
 </template>
@@ -37,18 +130,34 @@
 import { mapGetters } from 'vuex'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueHtml2pdf from 'vue-html2pdf'
+import moment from 'moment'
 
 export default {
+    methods: {
+        /*
+            Generate Report using refs and calling the
+            refs function generatePdf()
+        */
+        generateReport () {
+            this.$refs.html2Pdf.generatePdf()
+        },
+        format_date(value){
+            if (value) {
+                return moment(String(value)).format('YYYYMMDD')
+            }
+        },
+    },
     name: 'dashboard',
     components: {
-        
+        VueHtml2pdf
     },
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
             alert: 'auth/alert',
             message: 'auth/message',
-            reports: 'endpoints/payload',
+            data: 'endpoints/payload',
         })
     },
 }
@@ -56,21 +165,25 @@ export default {
 
 <style scoped>
 
-.goal {
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display:inline-block;
-    margin: 40px 8px 10px 8px; 
-    color: #cccccc;
-    background-color: #666666;
-    }
+.goalText {
+    border: 2px solid #000;
+    background: #999;
+}
 .inputText {
   text-indent: 30px;
 }
 
 .activityText {
     text-indent: 10px;
+    font-weight: bold;
+}
+.thickHr {
+    border: 4px solid #999;
+}
+.rightText {
+    text-align: right;
+}
+.inputTitle {
+    font-style: italic;
 }
 </style>

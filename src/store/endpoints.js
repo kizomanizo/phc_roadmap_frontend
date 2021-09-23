@@ -46,23 +46,23 @@ export default ({
         },
         async getReports ({ dispatch }) {
             let response = await axios.get('/data/')
-            return dispatch('commitHelper', response.data)
+            return dispatch('commitHelper', response.data.payload)
         },        
         async getGoals ({dispatch}) {
             let response = await axios.get('/goals/')
-            return dispatch('commitHelper', response.data)
+            return dispatch('commitHelper', response.data.payload)
         },
         async getInitiatives ({dispatch}) {
             let response = await axios.get('/initiatives/')
-            return dispatch('commitHelper', response.data)
+            return dispatch('commitHelper', response.data.payload)
         },
         async getActivities ({dispatch}) {
             let response = await axios.get('/activities/')
-            return dispatch('commitHelper', response.data)
+            return dispatch('commitHelper', response.data.payload)
         },
         async getInputs ({dispatch}) {
             let response = await axios.get('/inputs/')
-            return dispatch('commitHelper', response.data)
+            return dispatch('commitHelper', response.data.payload)
         },
     },
 })

@@ -45,15 +45,15 @@ export default ({
     actions: {
         async signIn ({ dispatch }, credentials) {
             let response = await axios.post('/users/login/', credentials)
-            return dispatch('attempt', response.data)
+            return dispatch('attempt', response.data.payload)
         },
         
-        async attempt({ commit, state,  }, data) {
-            if (data) {
-                commit('SET_TOKEN', data.access)
+        async attempt({ commit, state,  }, payload) {
+            if (payload) {
+                commit('SET_TOKEN', payload.access)
                 commit('SET_ALERT', false)
                 commit('SET_MESSAGE', 'Token has been received!')
-                commit('SET_USER', data.id)
+                commit('SET_USER', payload.id)
             }
 
             if (!state.token) {
