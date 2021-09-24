@@ -44,24 +44,12 @@ export default ({
                 commit('SET_PAYLOAD', error.message)
             }
         },
-        async getReports ({ dispatch }) {
-            let response = await axios.get('/goals/')
+        async getActivityReport ({ dispatch }) {
+            let response = await axios.get('/data/')
             return dispatch('commitHelper', response.data.payload)
         },        
-        async getGoals ({dispatch}) {
+        async getDetailedReport ({dispatch}) {
             let response = await axios.get('/goals/')
-            return dispatch('commitHelper', response.data.payload)
-        },
-        async getInitiatives ({dispatch}) {
-            let response = await axios.get('/initiatives/')
-            return dispatch('commitHelper', response.data.payload)
-        },
-        async getActivities ({dispatch}) {
-            let response = await axios.get('/activities/')
-            return dispatch('commitHelper', response.data.payload)
-        },
-        async getInputs ({dispatch}) {
-            let response = await axios.get('/inputs/')
             return dispatch('commitHelper', response.data.payload)
         },
     },
