@@ -1,7 +1,7 @@
 <template>
     <div>
         <template>
-            <h2>Goals</h2>
+            <h2>Detailed Report</h2>
             <p>{{ message }}</p>
         </template>
     </div>

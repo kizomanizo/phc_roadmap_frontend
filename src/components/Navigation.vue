@@ -41,7 +41,7 @@ export default {
         ...mapActions ({
             signOutAction: 'auth/signOut',
             getActivityReportAction: 'endpoints/getActivityReport',
-            getDetailedReport: 'endpoints/getDetailedReport',
+            getDetailedReportAction: 'endpoints/getDetailedReport',
         }),
 
         signOut () {
