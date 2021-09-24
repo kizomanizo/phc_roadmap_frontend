@@ -45,7 +45,7 @@ export default ({
             }
         },
         async getReports ({ dispatch }) {
-            let response = await axios.get('/data/')
+            let response = await axios.get('/goals/')
             return dispatch('commitHelper', response.data.payload)
         },        
         async getGoals ({dispatch}) {

@@ -5,22 +5,21 @@
                 <div class="col-9">
                     <h2>Investment Summary Report</h2>
                 </div>
-                <div class="col-3">
-                    <span class="textRight"><a href="#" @click.prevent="generateReport">PDF</a></span>
+                <div class="col-3 textRight">
+                    <p><a class="text-right" href="#" @click.prevent="generateReport">Print PDF</a></p>
                 </div>
             </div>
             <template>
-                <div v-for="(data, index) in data" :key="data.id">
+                <div v-for="(goal, index) in goals" :key="goal.id">
                     <div class="p-3 mb-2 text-black goalText">
-                        <h3>Strategic Goal {{ index+1 }}: {{ data.goal }}</h3>
+                        <h3>Strategic Goal {{ index+1 }}: {{ goal.name }}</h3>
                     </div>
-                    <div v-for="(initiative, index) in data.initiatives" class="row" :key="initiative.id">
+                    <div v-for="(initiative, index) in goal.initiatives" class="row" :key="initiative.id">
                         <div class="row">
                             <div class="col-9">
-                                <h4>Inititative {{ index+1 }}: {{ initiative.initiative }}</h4>
+                                <h4>Inititative {{ index+1 }}: {{ initiative.name }}</h4>
                             </div>
                             <div class="col-3 rightText">
-                                <!-- For dough/cheddar -->
                                 <h4 class="text-right">$900,000</h4>
                             </div>
                         </div>
@@ -29,7 +28,7 @@
                                 <div class="activityText row">
                                     <hr class="thickHr">                     
                                     <div class="col-9">
-                                        <span class="text-muted">Activity {{index+1}}:</span> {{ activity.activity }}.
+                                        <span class="text-muted">Activity {{index+1}}:</span> {{ activity.name }}.
                                     </div>
                                     <div class="col-3 rightText">
                                         <!-- For dough/cheddar -->
@@ -38,8 +37,8 @@
                                     <p class="text-muted inputTitle">Inputs</p>
                                 </div>
                                 <div>                                    
-                                    <p class="inputText" v-for="(input) in activity.inputs" :key="input.id">
-                                        {{input.input_name}}
+                                    <p class="inputText" v-for="(input_type) in activity.input_types" :key="input_type.id">
+                                        {{input_type.name}}
                                     </p>
                                 </div>
                             </div>
@@ -157,7 +156,7 @@ export default {
             authenticated: 'auth/authenticated',
             alert: 'auth/alert',
             message: 'auth/message',
-            data: 'endpoints/payload',
+            goals: 'endpoints/payload',
         })
     },
 }

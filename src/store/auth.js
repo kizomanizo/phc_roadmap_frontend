@@ -47,7 +47,7 @@ export default ({
             let response = await axios.post('/users/login/', credentials)
             return dispatch('attempt', response.data.payload)
         },
-        
+
         async attempt({ commit, state,  }, payload) {
             if (payload) {
                 commit('SET_TOKEN', payload.access)

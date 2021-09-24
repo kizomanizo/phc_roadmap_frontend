@@ -3,7 +3,7 @@
         <b-navbar v-if="authenticated" type="dark" variant="dark">
             <b-container>
                 <b-navbar-nav>
-                    <b-navbar-brand>RC Tool</b-navbar-brand>
+                    <b-navbar-brand>Roadmap-Costing Tool</b-navbar-brand>
                         <b-nav-item href="#" @click.prevent="getReports">Report</b-nav-item>
                         <b-nav-item href="#" @click.prevent="getGoals">Goals</b-nav-item>
                         <b-nav-item href="#" @click.prevent="getInitiatives">Initiatives</b-nav-item>
@@ -19,7 +19,7 @@
         <b-navbar v-else type="dark" variant="dark">
             <b-container>
                 <b-navbar-nav>
-                    <b-navbar-brand>RC Tool</b-navbar-brand>
+                    <b-navbar-brand>Roadmap-Costing Tool</b-navbar-brand>
                 </b-navbar-nav>
                 <b-navbar-nav ml="auto">
                     <b-nav-item to="signin">Login</b-nav-item>
