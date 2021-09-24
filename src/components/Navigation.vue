@@ -23,6 +23,7 @@
                 </b-navbar-nav>
             </b-container>
         </b-navbar>
+        <b-alert v-if="alert==true" variant="danger" show>{{ message }}</b-alert>
     </div>
 </template>
 
@@ -34,6 +35,8 @@ export default {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
             user: 'auth/user',
+            alert: 'endpoints/alert',
+            message: 'endpoints/message',
         }),
     },
 

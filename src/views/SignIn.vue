@@ -1,42 +1,51 @@
 <template>
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
+    <div class="container">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
 
-            <!-- Icon -->
-            <div class="fadeIn first">
-                <b-icon icon="person-fill"></b-icon> Sign In
-            </div>
+                <!-- Icon -->
+                <div class="fadeIn first">
+                    <b-icon icon="person-fill"></b-icon> Sign In
+                </div>
 
-            <!-- Login Form -->
-            <form @submit.prevent="submit">
-            <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" v-model="form.username">
-            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="form.password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-            </form>
+                <!-- Login Form -->
+                <form @submit.prevent="submit">
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" v-model="form.username">
+                <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="form.password">
+                <input type="submit" class="fadeIn fourth" value="Log In">
+                </form>
 
-            <!-- Remind Passowrd -->
-            <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password? <b-icon icon="exclamation-triangle"></b-icon></a>
+                <!-- Remind Passowrd -->
+                <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password? <b-icon icon="exclamation-triangle"></b-icon></a>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'signin',
     components: {
         
     },
+    computed: {
+        ...mapGetters ({
+            authenticated: 'auth/authenticated',
+            alert: 'auth/alert',
+            message: 'auth/message',
+        })
+    },
     data () {
         return {
             form: {
                 username: '',
                 password: '',
-            }
+            },
         }
     },
     methods: {
@@ -48,11 +57,14 @@ export default {
         submit () {
             this.signIn(this.form).then (() => {
                 this.$router.replace({
-                    name: 'home',
+                    name: 'activityreport',
                 })
             })
-        }
-    }
+        },
+        beforeMount(){
+            return
+        },
+    },
 }
 </script>
 

@@ -6,11 +6,11 @@
                     <h2>Investment Summary Report</h2>
                 </div>
                 <div class="col-3 textRight">
-                    <p><a class="text-right" href="#" @click.prevent="generateReport">Print PDF</a></p>
+                    <p class="text-right"><a href="#" @click.prevent="generateReport">Print PDF</a></p>
                 </div>
             </div>
             <template>
-                <div v-for="(goal, index) in goals" :key="goal.id">
+                <div v-for="(goal, index) in activityReport" :key="goal.id">
                     <div class="p-3 mb-2 text-black goalText">
                         <h3>Strategic Goal {{ index+1 }}: {{ goal.name }}</h3>
                     </div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <template>
-                            <div v-for="(goal, index) in goals" :key="goal.id">
+                            <div v-for="(goal, index) in activityReport" :key="goal.id">
                                 <div class="p-3 mb-2 text-black goalText">
                                     <h3>Strategic Goal {{ index+1 }}: {{ goal.name }}</h3>
                                 </div>
@@ -115,7 +115,6 @@
                                     <hr>
                                 </div>
                             </div>
-                        <div>Print PDF</div>
                         </template>
                         <!-- PDF Content Ends Here -->
                     </section>
@@ -130,7 +129,6 @@ import { mapGetters } from 'vuex'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueHtml2pdf from 'vue-html2pdf'
-import moment from 'moment'
 
 export default {
     methods: {
@@ -141,13 +139,8 @@ export default {
         generateReport () {
             this.$refs.html2Pdf.generatePdf()
         },
-        format_date(value){
-            if (value) {
-                return moment(String(value)).format('YYYYMMDD')
-            }
-        },
     },
-    name: 'dashboard',
+    name: 'activityReport',
     components: {
         VueHtml2pdf
     },
@@ -156,7 +149,7 @@ export default {
             authenticated: 'auth/authenticated',
             alert: 'auth/alert',
             message: 'auth/message',
-            goals: 'endpoints/payload',
+            activityReport: 'endpoints/payload',
         })
     },
 }

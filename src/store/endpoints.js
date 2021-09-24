@@ -35,13 +35,13 @@ export default ({
     actions: {
         async commitHelper({ commit }, data) {
             try {
-                commit('SET_ALERT', false)
+                commit('SET_ALERT', data)
                 commit('SET_MESSAGE', 'Payload has been received.')
                 commit('SET_PAYLOAD', data)
             } catch (error) {
                 commit('SET_ALERT', true)
                 commit('SET_MESSAGE', error.statusCode)
-                commit('SET_PAYLOAD', error.message)
+                commit('SET_PAYLOAD', error.message.payload)
             }
         },
         async getActivityReport ({ dispatch }) {

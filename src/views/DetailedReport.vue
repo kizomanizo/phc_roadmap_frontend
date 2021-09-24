@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-    name: 'goals',
+    name: 'detailedReport',
     components: {
         
     },
@@ -22,7 +22,7 @@ export default {
             authenticated: 'auth/authenticated',
             alert: 'auth/alert',
             message: 'auth/message',
-            goals: 'endpoints/payload'
+            detailedReport: 'endpoints/payload'
         })
     },
 }
