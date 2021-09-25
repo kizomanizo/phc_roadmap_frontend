@@ -6,6 +6,7 @@ export default ({
         alert: null,
         message: null,
         payload: null,
+        user: null,
     },
 
     mutations: {
@@ -35,13 +36,13 @@ export default ({
     actions: {
         async commitHelper({ commit }, data) {
             try {
-                commit('SET_ALERT', data)
+                commit('SET_ALERT', false)
                 commit('SET_MESSAGE', 'Payload has been received.')
                 commit('SET_PAYLOAD', data)
             } catch (error) {
                 commit('SET_ALERT', true)
                 commit('SET_MESSAGE', error.statusCode)
-                commit('SET_PAYLOAD', error.message.payload)
+                commit('SET_PAYLOAD', error.message)
             }
         },
         async getActivityReport ({ dispatch }) {
@@ -50,6 +51,10 @@ export default ({
         },        
         async getDetailedReport ({dispatch}) {
             let response = await axios.get('/goals/')
+            return dispatch('commitHelper', response.data.payload)
+        },
+        async getOtherReport ({dispatch}) {
+            let response = await axios.get('/users/')
             return dispatch('commitHelper', response.data.payload)
         },
     },

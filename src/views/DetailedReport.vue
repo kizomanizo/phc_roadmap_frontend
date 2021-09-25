@@ -2,7 +2,6 @@
     <div>
         <template>
             <h2>Detailed Report</h2>
-            <p>{{ message }}</p>
         </template>
     </div>
 </template>
@@ -20,8 +19,6 @@ export default {
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
-            alert: 'auth/alert',
-            message: 'auth/message',
             detailedReport: 'endpoints/payload'
         })
     },

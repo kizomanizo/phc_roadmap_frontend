@@ -3,10 +3,10 @@
         <template>
             <div class="row">
                 <div class="col-9">
-                    <h2>Investment Summary Report</h2>
+                    <h2>Activity Report</h2>
                 </div>
-                <div class="col-3 textRight">
-                    <p class="text-right"><a href="#" @click.prevent="generateReport">Print PDF</a></p>
+                <div class="col-3" ml="auto">
+                    <p class="text-right textRight"><a href="#" @click.prevent="generateReport">Print PDF</a></p>
                 </div>
             </div>
             <template>
@@ -147,8 +147,6 @@ export default {
     computed: {
         ...mapGetters ({
             authenticated: 'auth/authenticated',
-            alert: 'auth/alert',
-            message: 'auth/message',
             activityReport: 'endpoints/payload',
         })
     },
@@ -159,7 +157,7 @@ export default {
 
 .goalText {
     border: 2px solid #000;
-    background: #999;
+    background: rgb(190, 190, 190);
 }
 .inputText {
   text-indent: 30px;

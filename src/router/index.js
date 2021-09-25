@@ -1,19 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import ActivityReport from '../views/ActivityReport.vue'
 import DetailedReport from '../views/DetailedReport.vue'
+import OtherReport from '../views/OtherReport.vue'
 
 import store  from '@/store'
 
 Vue.use(VueRouter)
     const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: Home
-    },
     {
         path: '/signin',
         name: 'signin',
@@ -29,6 +24,11 @@ Vue.use(VueRouter)
         name: 'detailedreport',
         component: DetailedReport,
     },
+    {
+        path: '/otherreport',
+        name: 'otherreport',
+        component: OtherReport,
+    },
 ]
 
 const router = new VueRouter({
@@ -40,7 +40,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const currentUser = store.getters['auth/authenticated']
     if (to.name !== 'signin' && !currentUser) next({ name: 'signin' })
-    else if(to.name=='signin' && currentUser){ next('/')}
+    else if (to.name === 'signin' && currentUser) next({ name: 'activityreport' })
     else next()
 })
 

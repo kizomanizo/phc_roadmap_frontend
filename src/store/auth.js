@@ -45,6 +45,7 @@ export default ({
     actions: {
         async signIn ({ dispatch }, credentials) {
             let response = await axios.post('/users/login/', credentials)
+            localStorage.removeItem('token')
             return dispatch('attempt', response.data.payload)
         },
 
@@ -57,12 +58,13 @@ export default ({
             }
 
             if (!state.token) {
+                localStorage.removeItem('token')
                 return
             }
 
             try {
                 commit('SET_ALERT', false)
-                commit('SET_MESSAGE', 'Authorized user')
+                commit('SET_MESSAGE', 'Login successful!')
             }   catch (error) {
                     commit('SET_TOKEN', null)
                     commit('SET_USER', null)
@@ -72,15 +74,16 @@ export default ({
         },
 
         async signOut ( { dispatch }) {
-                const alert = 'User has signed out!'
-                return dispatch('logOut', alert)
+                const message = 'User has signed out!'
+                localStorage.removeItem('token')
+                return dispatch('logOut', message)
         },
         
-        async logOut ({ commit }, alert) {
+        async logOut ({ commit }, message) {
             commit('SET_TOKEN', null)
             commit('SET_USER', null)
             commit('SET_ALERT', true)
-            commit('SET_MESSAGE', alert)
+            commit('SET_MESSAGE', message)
         }
     },
 })
