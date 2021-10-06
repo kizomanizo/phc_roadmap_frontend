@@ -25,16 +25,44 @@
                         </div>
                         <div class="row">
                             <div v-for="(activity, index) in initiative.activities" :key="activity.id">
-                                <div class="activityText row">
+                                <div class="row">
                                     <hr class="thickHr">                     
-                                    <div class="col-9">
+                                    <div class="col-9 activityText">
                                         <span class="text-muted">Activity {{index+1}}:</span> {{ activity.name }}.
                                     </div>
                                     <div class="col-3 rightText">
                                         <!-- For dough/cheddar -->
                                         <p class="text-right">$70,000</p>
                                     </div>
-                                    <p class="text-muted inputTitle">Inputs</p>
+                                    <br />
+                                    <p class="text-muted inputTitle activityText">Inputs</p>
+                                    <div class="row g-0 inputText">
+                                        <div class="row col-5 inputTextLeft">
+                                            <div class="col-4 inputTextLeftLeft">
+                                                <p>Human Resources</p>
+                                            </div>
+                                            <div class="col-8 inputTextLeftRight">
+                                                <p>Technical Expertise</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 inputTextRight">
+                                            <div class="row g-0 rightText">
+                                                <div class="col-3">094024898</div>
+                                                <div class="col-6">Meeting at least three times with blah blah blah</div>
+                                                <div class="col-3">$32,090</div>
+                                            </div>
+                                            <div class="row g-0 rightText">
+                                                <div class="col-3">094024898</div>
+                                                <div class="col-6">Transport to the field</div>
+                                                <div class="col-3 text-right">$52,090</div>
+                                            </div>
+                                            <div class="row g-0 rightText">
+                                                <div class="col-3">094024898</div>
+                                                <div class="col-6">Conference food</div>
+                                                <div class="col-3 text-right">$22,090</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>                                    
                                     <p class="inputText" v-for="(input_type) in activity.input_types" :key="input_type.id">
@@ -160,7 +188,7 @@ export default {
     background: rgb(190, 190, 190);
 }
 .inputText {
-  text-indent: 30px;
+  text-indent: 10px;
 }
 
 .activityText {
